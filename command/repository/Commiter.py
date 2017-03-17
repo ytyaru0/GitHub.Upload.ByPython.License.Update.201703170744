@@ -35,7 +35,7 @@ class Commiter:
         stdout_data = stdout_data.replace('\r', '\n')
         # 最終文字の'\n'を削除する
         stdout_data = stdout_data[:-1]
-        if is_show:
+        if is_show and 0 < len(stdout_data):
             print(stdout_data)
         
         # 配列化
@@ -54,7 +54,6 @@ class Commiter:
         subprocess.call(shlex.split("git push origin master"))
         time.sleep(3)
         self.__InsertLanguages(self.__GetLanguages())
-#        self.__InsertLicense()
         self.__InsertUpdateLicense()
 
     def __GetLanguages(self):
