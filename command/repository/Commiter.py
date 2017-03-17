@@ -86,12 +86,7 @@ class Commiter:
     リポジトリのライセンス情報を挿入または更新する。
     """
     def __InsertUpdateLicense(self):
-        # リポジトリのライセンス情報を取得する
-#        j = self.__RequestRepository()
-#        license_id = self.__GetLicenseId(j)
-        
         repo = self.data.db_repo['Repositories'].find_one(Name=self.data.get_repo_name())
-#        repo = self.data.db_repo['Repositories'].find_one(IdOnGitHub=j['id'])
         if None is repo:
             raise Exception('対象リポジトリのレコードが存在しません。正常動作では必ずリポジトリ新規作成時にレコードが作成されるはずです。')
         
@@ -132,7 +127,6 @@ class Commiter:
         license_id = self.__GetLicenseId(j)
         # 更新する
         self.data.db_repo.begin()
-#        self.data.db_repo['Licenses'].delete(IdOnGitHub=j['id'])
         repo_id = self.data.db_repo['Repositories'].find_one(IdOnGitHub=j['id'])['Id']
         self.data.db_repo['Licenses'].delete(RepositoryId=repo_id)
         self.data.db_repo['Licenses'].insert(dict(
@@ -145,7 +139,7 @@ class Commiter:
         # リポジトリのライセンス情報を取得する
         j = self.__RequestRepository()
         license_id = self.__GetLicenseId(j)
-        # リポジトリとライセンスを紐付ける
+        # 挿入する
         self.data.db_repo['Licenses'].insert(dict(
             RepositoryId=self.data.db_repo['Repositories'].find_one(IdOnGitHub=j['id'])['Id'],
             LicenseId=license_id
