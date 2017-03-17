@@ -49,13 +49,15 @@ class Commiter:
         return files
         
     def AddCommitPush(self, commit_message):
-        subprocess.call(shlex.split("git add ."))
-        subprocess.call(shlex.split("git commit -m '{0}'".format(commit_message)))
-        subprocess.call(shlex.split("git push origin master"))
-        time.sleep(3)
-        self.__InsertLanguages(self.__GetLanguages())
-        self.__InsertUpdateLicense()
-
+        if 0 < len(self.files):
+            subprocess.call(shlex.split("git add ."))
+            subprocess.call(shlex.split("git commit -m '{0}'".format(commit_message)))
+            subprocess.call(shlex.split("git push origin master"))
+            time.sleep(3)
+            self.__InsertLanguages(self.__GetLanguages())
+            self.__InsertUpdateLicense()
+        else:
+            print('add,commit,pushするファイルがありません。')
     def __GetLanguages(self):
         url = 'https://api.github.com/repos/{0}/{1}/languages'.format(self.data.get_username(), self.data.get_repo_name())
         r = requests.get(url)
