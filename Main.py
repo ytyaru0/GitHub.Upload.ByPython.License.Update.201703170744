@@ -53,7 +53,7 @@ class Main:
         print('URL: ' + self.data.get_repo_homepage())
         print('----------------------------------------')
         self.commiter.ShowCommitFiles()
-        print('commit,pushするならメッセージを入力してください。Enterかnで終了します。')
+        print('add,commit,pushするならメッセージを入力してください。Enterかnで終了します。')
         print('サブコマンド    n:終了 a:集計 e:編集 d:削除 i:Issue作成')
 
     def __Commit(self):

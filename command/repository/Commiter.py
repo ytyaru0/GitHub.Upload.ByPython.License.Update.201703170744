@@ -58,6 +58,7 @@ class Commiter:
             self.__InsertUpdateLicense()
         else:
             print('add,commit,pushするファイルがありません。')
+
     def __GetLanguages(self):
         url = 'https://api.github.com/repos/{0}/{1}/languages'.format(self.data.get_username(), self.data.get_repo_name())
         r = requests.get(url)
